@@ -5,6 +5,7 @@ namespace Qihucms\Currency\Controllers\Api;
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Qihucms\Currency\Currency;
 use Qihucms\Currency\Requests\RechargeOrder\StoreRequest;
 use Qihucms\Currency\Resources\RechargeOrder\RechargeOrder as RechargeOrderResource;
@@ -30,7 +31,7 @@ class RechargeOrderController extends ApiController
     public function index(Request $request)
     {
         $condition = [
-            ['user_id', '=', \Auth::id()]
+            ['user_id', '=', Auth::id()]
         ];
 
         // 货币类型
@@ -62,7 +63,7 @@ class RechargeOrderController extends ApiController
     public function store(StoreRequest $request)
     {
         $data = $request->only(['currency_type_id', 'recharge_amount']);
-        $data = array_merge(['user_id' => \Auth::id(), 'status' => 0], $data);
+        $data = array_merge(['user_id' => Auth::id(), 'status' => 0], $data);
 
         // 验证申请是否合规
         $type = Currency::type($data['currency_type_id']);
@@ -77,7 +78,7 @@ class RechargeOrderController extends ApiController
                 $toAmount = bcmul($data['recharge_amount'], $type->recharge_rate, 2);
 
                 // 当前会员账户
-                $userAccount = Currency::findUserAccountByType(\Auth::id(), $type->id);
+                $userAccount = Currency::findUserAccountByType(Auth::id(), $type->id);
 
                 // 附加数据
                 $data = array_merge($data, [
@@ -93,16 +94,29 @@ class RechargeOrderController extends ApiController
                     return new RechargeOrderResource($result);
                 }
 
-                return $this->jsonResponse(['充值订单创建失败'], '', 422);
+                return $this->jsonResponse(
+                    [__('currency::message.recharge_order_create_fail')],
+                    '',
+                    422
+                );
             } else {
                 return $this->jsonResponse(
-                    [$type->name . '充值最低¥' . $type->recharge_min_amount . '元起充'],
+                    [
+                        trans(
+                            'currency::message.recharge_amount_min',
+                            ['name' => $type->name, 'amount' => $type->recharge_min_amount]
+                        )
+                    ],
                     '',
                     422
                 );
             }
         } else {
-            return $this->jsonResponse([$type->name . '暂不支持充值'], '', 422);
+            return $this->jsonResponse(
+                [trans('currency::message.recharge_no_support', ['name' => $type->name])],
+                '',
+                422
+            );
         }
     }
 
@@ -114,21 +128,25 @@ class RechargeOrderController extends ApiController
      */
     public function show($id)
     {
-        $result = $this->order->findByUserIdAndId(\Auth::id(), $id);
+        $result = $this->order->findByUserIdAndId(Auth::id(), $id);
         if ($result) {
             $result->pay_order()->create([
                 'user_id' => $result->user_id,
                 'driver' => 'alipay',
                 'gateway' => 'app',
                 'type' => 'pay',
-                'subject' => '充值',
+                'subject' => __('currency::message.recharge_subject'),
                 'total_amount' => $result->recharge_amount,
                 'params' => ['home_url' => 'http://www.baidu.com']
             ]);
             return new RechargeOrderResource($result);
         }
 
-        return $this->jsonResponse(['订单不存在'], '', 422);
+        return $this->jsonResponse(
+            [__('currency::message.record_does_not_exist')],
+            '',
+            422
+        );
     }
 
     /**
@@ -148,10 +166,10 @@ class RechargeOrderController extends ApiController
      */
     public function destroy($id)
     {
-        if ($this->order->deleteByUserIdAndId(\Auth::id(), $id)) {
-            return $this->jsonResponse(['user_id' => \Auth::id(), 'id' => $id]);
+        if ($this->order->deleteByUserIdAndId(Auth::id(), $id)) {
+            return $this->jsonResponse(['user_id' => Auth::id(), 'id' => $id]);
         }
 
-        return $this->jsonResponse(['删除失败'], '', 422);
+        return $this->jsonResponse([__('currency::message.delete_fail')], '', 422);
     }
 }

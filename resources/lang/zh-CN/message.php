@@ -18,4 +18,14 @@ return [
     'insufficient_balance' => '余额不足',
     'amount_too_small' => '实际到账金额小于0.01，无法入账',
     'invalid_bank_card' => '无效的收款卡号',
+
+    'exchange_amount_max' => '每日最大兑换金额为:amount',
+    'before_accounting' => '[出账前]',
+    'after_accounting' => '[出账后]',
+    'exchange_fail' => '兑换失败',
+
+    'recharge_amount_min' => ':name充值最低¥:amount元起充',
+    'recharge_order_create_fail' => '充值订单创建失败',
+    'recharge_no_support' => ':name暂不支持充值',
+    'recharge_subject' => '充值'
 ];

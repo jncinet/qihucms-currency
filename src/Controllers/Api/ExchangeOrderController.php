@@ -5,6 +5,7 @@ namespace Qihucms\Currency\Controllers\Api;
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Qihucms\Currency\Currency;
 use Qihucms\Currency\Repositories\ExchangeOrderRepository;
 use Qihucms\Currency\Requests\ExchangeOrder\StoreRequest;
@@ -30,7 +31,7 @@ class ExchangeOrderController extends ApiController
     public function index(Request $request)
     {
         $condition = [
-            ['user_id', '=', \Auth::id()]
+            ['user_id', '=', Auth::id()]
         ];
 
         // 兑换类型
@@ -62,7 +63,7 @@ class ExchangeOrderController extends ApiController
     public function store(StoreRequest $request)
     {
         $data = $request->only(['currency_exchange_id', 'exchange_amount']);
-        $data = array_merge(['user_id' => \Auth::id(), 'status' => 0], $data);
+        $data = array_merge(['user_id' => Auth::id(), 'status' => 0], $data);
 
         // 读取兑换规则
         $exchange = Currency::exchange($data['currency_exchange_id']);
@@ -70,18 +71,24 @@ class ExchangeOrderController extends ApiController
         if ($exchange) {
 
             // 读取会员兑换类型账户
-            $userTypeXAmount = Currency::findUserAccountByType(\Auth::id(), $exchange->currency_type_id);
+            $userTypeXAmount = Currency::findUserAccountByType(Auth::id(), $exchange->currency_type_id);
 
             // 验证账户余额是否充足，账户金额必须大于等于当前要兑换的金额
             if ($userTypeXAmount && $userTypeXAmount->amount >= $data['exchange_amount']) {
 
                 // 当天已经兑换的金额
-                $todayAmount = $this->order->sumUserTodayExchangeAmount(\Auth::id(), $exchange->id);
+                $todayAmount = $this->order->sumUserTodayExchangeAmount(Auth::id(), $exchange->id);
 
                 // 验证是否超出每日兑换限制
-                if ($exchange->exchange_max_amount > 0 && $exchange->exchange_max_amount < $todayAmount + $data['exchange_amount']) {
+                if ($exchange->exchange_max_amount > 0
+                    && $exchange->exchange_max_amount < $todayAmount + $data['exchange_amount']) {
                     return $this->jsonResponse(
-                        ['每日最大兑换金额为' . $exchange->exchange_max_amount],
+                        [
+                            trans(
+                                'currency::message.exchange_amount_max',
+                                ['amount' => $exchange->exchange_max_amount]
+                            )
+                        ],
                         '',
                         422
                     );
@@ -130,7 +137,7 @@ class ExchangeOrderController extends ApiController
                         } else {
                             // 记录错误
                             $result->status = 2;
-                            $result->desc = '【出账后】' . $resultY;
+                            $result->desc = __('currency::message.before_accounting') . $resultY;
                             $result->save();
 
                             return $this->jsonResponse([$resultY], '', 422);
@@ -138,7 +145,7 @@ class ExchangeOrderController extends ApiController
                     } else {
                         // 记录错误
                         $result->status = 2;
-                        $result->desc = '【未出账】' . $resultX;
+                        $result->desc = __('currency::message.after_accounting') . $resultX;
                         $result->save();
 
                         return $this->jsonResponse([$resultX], '', 422);
@@ -147,7 +154,7 @@ class ExchangeOrderController extends ApiController
             }
         }
 
-        return $this->jsonResponse(['兑换失败'], '', 422);
+        return $this->jsonResponse([__('currency::message.exchange_fail')], '', 422);
     }
 
     /**
@@ -158,12 +165,12 @@ class ExchangeOrderController extends ApiController
      */
     public function show($id)
     {
-        $result = $this->order->findByUserIdAndId(\Auth::id(), $id);
+        $result = $this->order->findByUserIdAndId(Auth::id(), $id);
         if ($result) {
             return new ExchangeOrderResource($result);
         }
 
-        return $this->jsonResponse(['内容不存在'], '', 422);
+        return $this->jsonResponse([__('currency::message.record_does_not_exist')], '', 422);
     }
 
     /**
@@ -174,10 +181,10 @@ class ExchangeOrderController extends ApiController
      */
     public function destroy($id)
     {
-        if ($this->order->deleteByUserIdAndId(\Auth::id(), $id)) {
-            return $this->jsonResponse(['user_id' => \Auth::id(), 'id' => $id]);
+        if ($this->order->deleteByUserIdAndId(Auth::id(), $id)) {
+            return $this->jsonResponse(['user_id' => Auth::id(), 'id' => $id]);
         }
 
-        return $this->jsonResponse(['删除失败'], '', 422);
+        return $this->jsonResponse([__('currency::message.delete_fail')], '', 422);
     }
 }
