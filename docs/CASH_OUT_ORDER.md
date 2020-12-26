@@ -1,59 +1,41 @@
-<h1 align="center">会员卡号管理</h1>
+<h1 align="center">提现订单</h1>
 
-#### 根据会员ID查询会员卡号列表
-```
-请求方式：GET
-请求地址：currency/admin-currency-bank-cards?q=1&page=1
-请求参数：
-    q 会员ID
-    page 页码
-返回值:
-{
-    "current_page": 1,
-    "data": [
-        {
-            "id": 1, // 卡号ID
-            "text": '张三' // 开户名
-        },
-        ...
-    ],
-    "first_page_url": "http://*.*.*/currency/admin-currency-bank-cards?page=1",
-    "from": null,
-    "last_page": 1,
-    "last_page_url": "http://*.*.*/currency/admin-currency-bank-cards?page=1",
-    "next_page_url": null,
-    "path": "http://*.*.*/currency/admin-currency-bank-cards",
-    "per_page": 15,
-    "prev_page_url": null,
-    "to": null,
-    "total": 0
-}
-```
 #### 会员卡号列表
 ```
 请求方式：GET
-请求地址：/currency/bank-cards
+请求地址：/currency/cash-out-orders
+请求参数：
+{
+    "type": 1 // 可选）提现类型ID号
+    "bank_card": '6453288432' // 可选）收款账号
+    "status": 1 // 可选）业务状态：[0=>'申请中', 1=>'已审核', 2=>'未通过', 3=>'已打款']
+    "page": // 可选）分页页码
+    "limit": // 可选）分页条数
+}
 返回值:
 {
     "current_page": 1,
     "data": [
         {
             "id": 1, // 卡号ID
-            "user_id": 666, // 所属会员ID
-            "name": '张三', // 开户名
-            "bank": '中国银行', // 开户行
-            "mobile": '188000011*1', // 预留手机号
-            "account": '65724324324324322346', // 账号
-            "created_at": '1秒前' // 添加时间
+            "user_id": 666, // 提现会员ID
+            "currency_type": {"id"： 1, "name": "货币名称", ...}, // 货币详细
+            "currency_bank_card": {"id": 1, "bank": '开户行', ...}, // 收款账号详细
+            "rate": 50, // 提现汇率
+            "cash_out_amount": 100.00, // 提现金额
+            "recorded_amount": 50.00, // 到账金额
+            "user_amount": 100.00, // 会员账户余额
+            "status": 3, // 业务状态：[0=>'申请中', 1=>'已审核', 2=>'未通过', 3=>'已打款']
+            "created_at": '1秒前' // 申请时间
         },
         ...
     ],
-    "first_page_url": "http://*.*.*/currency/bank-cards?page=1",
+    "first_page_url": "http://*.*.*/currency/cash-out-orders?page=1",
     "from": null,
     "last_page": 1,
-    "last_page_url": "http://*.*.*/currency/bank-cards?page=1",
+    "last_page_url": "http://*.*.*/currency/cash-out-orders?page=1",
     "next_page_url": null,
-    "path": "http://*.*.*/currency/bank-cards",
+    "path": "http://*.*.*/currency/cash-out-orders",
     "per_page": 15,
     "prev_page_url": null,
     "to": null,
@@ -63,7 +45,7 @@
 #### 会员卡添加
 ```
 请求方式：POST
-请求地址：/currency/bank-cards
+请求地址：/currency/cash-out-orders
 返回值:
 {
     "id": 1, // 卡号ID
@@ -78,7 +60,7 @@
 #### 会员卡详细
 ```
 请求方式：GET
-请求地址：/currency/bank-cards/{id}
+请求地址：/currency/cash-out-orders/{id}
 返回值:
 {
     "id": 1, // 卡号ID
@@ -93,7 +75,7 @@
 #### 会员卡修改
 ```
 请求方式：PUT|PATCH
-请求地址：/currency/bank-cards/{id}
+请求地址：/currency/cash-out-orders/{id}
 请求参数：
 {
     "name": '张三', // 开户名
@@ -114,7 +96,7 @@
 #### 会员卡删除
 ```
 请求方式：DELETE
-请求地址：/currency/bank-cards/{id}
+请求地址：/currency/cash-out-orders/{id}
 返回值:
 {
     "status": "success",
