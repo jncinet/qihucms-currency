@@ -1,0 +1,30 @@
+{
+  "name": "jncinet/qihucms-currency",
+  "description": "qihucms currency.",
+  "keywords": [
+    "laravel",
+    "qihucms",
+    "currency"
+  ],
+  "homepage": "https://www.qihucms.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "zhangye",
+      "email": "y@qilephp.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Qihucms\\Currency\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Qihucms\\Currency\\CurrencyServiceProvider"
+      ]
+    }
+  }
+}
