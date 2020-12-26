@@ -1,6 +1,6 @@
-<h1 align="center">提现订单</h1>
+<h1 align="center">充值订单</h1>
 
-### 提现订单列表
+### 充值订单列表
 ```
 请求方式：GET
 请求地址：/currency/cash-out-orders
@@ -43,7 +43,7 @@
 }
 ```
 
-## 申请提现
+## 充值
 ```
 请求方式：POST
 请求地址：/currency/cash-out-orders
@@ -62,7 +62,7 @@
 }
 ```
 
-### 提现订单详细
+### 充值订单详细
 ```
 请求方式：GET
 请求地址：/currency/cash-out-orders/{id}
@@ -81,7 +81,7 @@
 }
 ```
 
-### 提现订单删除（非无效订单不可删除）
+### 充值订单删除（非无效订单不可删除）
 ```
 请求方式：DELETE
 请求地址：/currency/cash-out-orders/{id}
