@@ -5,6 +5,7 @@ namespace Qihucms\Currency\Controllers\Api;
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Qihucms\Currency\Currency;
 use Qihucms\Currency\Repositories\CashOutOrderRepository;
 use Qihucms\Currency\Requests\CashOutOrder\StoreRequest;
@@ -30,7 +31,7 @@ class CashOutOrderController extends ApiController
     public function index(Request $request)
     {
         $condition = [
-            ['user_id', '=', \Auth::id()]
+            ['user_id', '=', Auth::id()]
         ];
 
         // 货币类型
@@ -68,11 +69,15 @@ class CashOutOrderController extends ApiController
     public function store(StoreRequest $request)
     {
         $data = $request->only(['currency_type_id', 'currency_bank_card_id', 'cash_out_amount']);
-        $data = array_merge(['user_id' => \Auth::id(), 'status' => 0], $data);
+        $data = array_merge(['user_id' => Auth::id(), 'status' => 0], $data);
 
         // 验证卡号是否属于会员
-        if (!Currency::verifyUserBankCard(\Auth::id(), $data['currency_bank_card_id'])) {
-            return $this->jsonResponse(['无效的收款卡号'], '', 422);
+        if (!Currency::verifyUserBankCard(Auth::id(), $data['currency_bank_card_id'])) {
+            return $this->jsonResponse(
+                [__('currency::message.invalid_bank_card')],
+                '',
+                422
+            );
         }
 
         // 验证申请是否合规
@@ -85,7 +90,7 @@ class CashOutOrderController extends ApiController
             if ($type->cash_out_min_amount == 0 || $type->cash_out_min_amount <= $data['cash_out_amount']) {
 
                 // 当日已提数额
-                $cashedAmount = $this->order->sumUserTodayCashOutAmount(\Auth::id(), $type->id);
+                $cashedAmount = $this->order->sumUserTodayCashOutAmount(Auth::id(), $type->id);
 
                 // 当天是否还有可提现数额
                 if ($type->cash_out_max_amount == 0 || $cashedAmount < $type->cash_out_max_amount) {
@@ -102,18 +107,26 @@ class CashOutOrderController extends ApiController
                     );
 
                     if ($toAmount <= $serviceFee) {
-                        return $this->jsonResponse(['实际到账金额小于0.01，无法入账'], '', 422);
+                        return $this->jsonResponse(
+                            [__('currency::message.amount_too_small')],
+                            '',
+                            422
+                        );
                     }
 
                     // 实际到账金额
                     $recordedAmount = bcsub($toAmount, $serviceFee, 2);
 
                     // 当前会员账户
-                    $userAccount = Currency::findUserAccountByType(\Auth::id(), $type->id);
+                    $userAccount = Currency::findUserAccountByType(Auth::id(), $type->id);
 
                     // 验证会员账户金额是否足够
                     if ($userAccount && $userAccount->amount < $data['cash_out_amount']) {
-                        return $this->jsonResponse(['余额不足'], '', 422);
+                        return $this->jsonResponse(
+                            [__('currency::message.insufficient_balance')],
+                            '',
+                            422
+                        );
                     }
 
                     // 附加数据
@@ -129,27 +142,58 @@ class CashOutOrderController extends ApiController
                 } else {
                     if ($type->cash_out_max_amount - $cashedAmount > 0) {
                         return $this->jsonResponse(
-                            ['今日最多还可提现' . ($type->cash_out_max_amount - $cashedAmount) . $type->unit],
+                            [
+                                trans(
+                                    'currency::message.today_amount_max',
+                                    [
+                                        'amount' => $type->cash_out_max_amount - $cashedAmount,
+                                        'unit' => $type->unit
+                                    ]
+                                )
+                            ],
                             '',
                             422
                         );
                     } else {
-                        return $this->jsonResponse(['今日可提现额度已用完'], '', 422);
+                        return $this->jsonResponse(
+                            [__('currency::message.today_amount_empty')],
+                            '',
+                            422
+                        );
                     }
                 }
             } else {
                 return $this->jsonResponse(
-                    [$type->name . '提现最少' . $type->cash_out_min_amount . $type->unit],
+                    [
+                        trans(
+                            'currency::message.cash_min_amount',
+                            [
+                                'name' => $type->name,
+                                'amount' => $type->cash_out_min_amount,
+                                'unit' => $type->unit
+                            ]
+                        )
+                    ],
                     '',
                     422
                 );
             }
         } else {
-            return $this->jsonResponse([$type->name . '暂不支持提现'], '', 422);
+            return $this->jsonResponse(
+                [trans('currency::message.no_support_cash', ['name' => $type->name])],
+                '',
+                422
+            );
         }
 
         // 扣除会员账户余额
-        $expend = Currency::expend(\Auth::id(), $data['currency_type_id'], $result->cash_out_amount, 'cash-out-order', $result->id);
+        $expend = Currency::expend(
+            Auth::id(),
+            $data['currency_type_id'],
+            $result->cash_out_amount,
+            'cash-out-order',
+            $result->id
+        );
 
         // =100时，扣款成功
         if ($expend === true) {
@@ -159,7 +203,7 @@ class CashOutOrderController extends ApiController
         // 删除申请订单
         $result->delete();
 
-        return $this->jsonResponse(['tips' => $expend], '操作失败', 422);
+        return $this->jsonResponse(['tips' => $expend], '', 422);
     }
 
     /**
@@ -170,12 +214,16 @@ class CashOutOrderController extends ApiController
      */
     public function show($id)
     {
-        $result = $this->order->findByUserIdAndId(\Auth::id(), $id);
+        $result = $this->order->findByUserIdAndId(Auth::id(), $id);
         if ($result) {
             return new CashOutOrderResource($result);
         }
 
-        return $this->jsonResponse(['内容不存在'], '', 422);
+        return $this->jsonResponse(
+            [__('currency::message.record_does_not_exist')],
+            '',
+            422
+        );
     }
 
     /**
@@ -186,9 +234,9 @@ class CashOutOrderController extends ApiController
      */
     public function destroy($id)
     {
-        if ($this->order->deleteByUserIdAndId(\Auth::id(), $id)) {
+        if ($this->order->deleteByUserIdAndId(Auth::id(), $id)) {
             return $this->jsonResponse(['id' => intval($id)]);
         }
-        return $this->jsonResponse(['删除失败'], '', 422);
+        return $this->jsonResponse([__('currency::message.delete_fail')], '', 422);
     }
 }

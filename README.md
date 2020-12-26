@@ -11,3 +11,4 @@ composer require jncinet/qihucms-currency
 ## 使用
 
 [会员卡号管理介绍](https://jncinet.github.io/qihucms-currency/BANK_CARD)  
+[会员提现订单介绍](https://jncinet.github.io/qihucms-currency/CASH_OUT_ORDER)  

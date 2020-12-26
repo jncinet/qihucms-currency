@@ -1,6 +1,6 @@
 <h1 align="center">提现订单</h1>
 
-#### 会员卡号列表
+### 提现订单列表
 ```
 请求方式：GET
 请求地址：/currency/cash-out-orders
@@ -17,14 +17,14 @@
     "current_page": 1,
     "data": [
         {
-            "id": 1, // 卡号ID
+            "id": 1, // 订单ID
             "user_id": 666, // 提现会员ID
             "currency_type": {"id"： 1, "name": "货币名称", ...}, // 货币详细
-            "currency_bank_card": {"id": 1, "bank": '开户行', ...}, // 收款账号详细
+            "currency_bank_card": {"id": 1, "bank": "开户行", ...}, // 收款账号详细
             "rate": 50, // 提现汇率
             "cash_out_amount": 100.00, // 提现金额
             "recorded_amount": 50.00, // 到账金额
-            "user_amount": 100.00, // 会员账户余额
+            "user_amount": 1.00, // 会员账户余额
             "status": 3, // 业务状态：[0=>'申请中', 1=>'已审核', 2=>'未通过', 3=>'已打款']
             "created_at": '1秒前' // 申请时间
         },
@@ -42,58 +42,46 @@
     "total": 0
 }
 ```
-#### 会员卡添加
+
+## 申请提现
 ```
 请求方式：POST
 请求地址：/currency/cash-out-orders
 返回值:
 {
-    "id": 1, // 卡号ID
-    "user_id": 666, // 所属会员ID
-    "name": '张三', // 开户名
-    "bank": '中国银行', // 开户行
-    "mobile": '188000011*1', // 预留手机号
-    "account": '65724324324324322346', // 账号
-    "created_at": '1秒前' // 添加时间
+    "id": 1, // 订单ID
+    "user_id": 666, // 提现会员ID
+    "currency_type": {"id"： 1, "name": "货币名称", ...}, // 货币详细
+    "currency_bank_card": {"id": 1, "bank": "开户行", ...}, // 收款账号详细
+    "rate": 50, // 提现汇率
+    "cash_out_amount": 100.00, // 提现金额
+    "recorded_amount": 50.00, // 到账金额
+    "user_amount": 1.00, // 会员账户余额
+    "status": 3, // 业务状态：[0=>'申请中', 1=>'已审核', 2=>'未通过', 3=>'已打款']
+    "created_at": '1秒前' // 申请时间
 }
 ```
-#### 会员卡详细
+
+### 提现订单详细
 ```
 请求方式：GET
 请求地址：/currency/cash-out-orders/{id}
 返回值:
 {
-    "id": 1, // 卡号ID
-    "user_id": 666, // 所属会员ID
-    "name": '张三', // 开户名
-    "bank": '中国银行', // 开户行
-    "mobile": '188000011*1', // 预留手机号
-    "account": '65724324324324322346', // 账号
-    "created_at": '1秒前' // 添加时间
+    "id": 1, // 订单ID
+    "user_id": 666, // 提现会员ID
+    "currency_type": {"id"： 1, "name": "货币名称", ...}, // 货币详细
+    "currency_bank_card": {"id": 1, "bank": "开户行", ...}, // 收款账号详细
+    "rate": 50, // 提现汇率
+    "cash_out_amount": 100.00, // 提现金额
+    "recorded_amount": 50.00, // 到账金额
+    "user_amount": 1.00, // 会员账户余额
+    "status": 3, // 业务状态：[0=>'申请中', 1=>'已审核', 2=>'未通过', 3=>'已打款']
+    "created_at": '1秒前' // 申请时间
 }
 ```
-#### 会员卡修改
-```
-请求方式：PUT|PATCH
-请求地址：/currency/cash-out-orders/{id}
-请求参数：
-{
-    "name": '张三', // 开户名
-    "bank": '中国银行', // 开户行
-    "mobile": '188000011*1', // 预留手机号
-    "account": '65724324324324322346', // 账号
-}
-返回值:
-{
-    "status": "success",
-    "message": "更新成功",
-    "result": 
-    {
-        "id": 1, // 卡号ID
-    }
-}
-```
-#### 会员卡删除
+
+### 提现订单删除
 ```
 请求方式：DELETE
 请求地址：/currency/cash-out-orders/{id}
@@ -103,7 +91,7 @@
     "message": "删除成功",
     "result": 
     {
-        "id": 1, // 卡号ID
+        "id": 1, // 订单ID
     }
 }
 ```
