@@ -14,7 +14,9 @@
       "email": "y@qilephp.com"
     }
   ],
-  "require": {},
+  "require": {
+    "jncinet/qihucms-payment": "^1.0"
+  },
   "autoload": {
     "psr-4": {
       "Qihucms\\Currency\\": "src/"

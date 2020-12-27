@@ -30,3 +30,15 @@
     'updated_at' => '1秒前', // 账户最后更新时间
 }
 ```
+
+## 数据库
+
+### 会员账户：currency_users
+| Field                 | Type      | Length    | AllowNull | Default   | Comment       |
+| :----                 | :----     | :----     | :----     | :----     | :----         |
+| id                    | bigint    |           |           |           |               |
+| user_id               | bigint    |           |           |           | 交易会员       |
+| currency_type_id      | bigint    |           |           |           | 货币类型       |
+| amount                | decimal   | 10, 2     |           |           | 账户余额       |
+| created_at            | timestamp |           | Y         | NULL      | 创建时间        |
+| updated_at            | timestamp |           | Y         | NULL      | 更新时间        |

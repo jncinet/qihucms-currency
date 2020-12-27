@@ -58,3 +58,19 @@
     "created_at": '1秒前' // 操作时间
 }
 ```
+
+## 数据库
+
+### 账户流水：currency_user_logs
+| Field                 | Type      | Length    | AllowNull | Default   | Comment       |
+| :----                 | :----     | :----     | :----     | :----     | :----         |
+| id                    | bigint    |           |           |           |               |
+| user_id               | bigint    |           |           |           | 交易会员       |
+| currency_type_id      | bigint    |           |           |           | 货币类型       |
+| trigger_event         | varchar   | 255       |           |           | 触发事件       |
+| order_id              | varchar   | 255       |           |           | 订单号         |
+| amount                | decimal   | 10, 2     |           |           | 交易数额       |
+| user_current_amount   | decimal   | 10, 2     |           |           | 账户余额        |
+| desc                  | varchar   | 255       | Y         | NULL      | 备注           |
+| created_at            | timestamp |           | Y         | NULL      | 创建时间        |
+| updated_at            | timestamp |           | Y         | NULL      | 更新时间        |

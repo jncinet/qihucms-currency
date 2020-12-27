@@ -125,3 +125,17 @@
     }
 }
 ```
+
+## 数据库
+
+### 会员收款卡号：currency_bank_cards
+| Field             | Type      | Length    | AllowNull | Default   | Comment       |
+| :----             | :----     | :----     | :----     | :----     | :----         |
+| id                | bigint    |           |           |           |               |
+| user_id           | bigint    |           |           |           | 会员ID         |
+| name              | varchar   | 66        |           |           | 开户名         |
+| bank              | varchar   | 255       |           |           | 开户行         |
+| mobile            | char      | 11        | Y         | NULL      | 预留手机号      |
+| account           | varchar   | 255       |           |           | 账号           |
+| created_at        | timestamp |           | Y         | NULL      | 创建时间        |
+| updated_at        | timestamp |           | Y         | NULL      | 更新时间        |
