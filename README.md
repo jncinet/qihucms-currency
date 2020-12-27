@@ -9,9 +9,13 @@ composer require jncinet/qihucms-currency
 > 接口URL前缀可在文件/config/qihu.php中设置 currency_prefix 配置；
 
 ## 使用
+[会员卡号](https://jncinet.github.io/qihucms-currency/BANK_CARD)  
+[会员账户](https://jncinet.github.io/qihucms-currency/USER)  
+[账户流水](https://jncinet.github.io/qihucms-currency/USER_LOG)  
 
-[会员卡号管理介绍](https://jncinet.github.io/qihucms-currency/BANK_CARD)  
-[会员提现订单介绍](https://jncinet.github.io/qihucms-currency/CASH_OUT_ORDER)  
-[会员充值订单介绍](https://jncinet.github.io/qihucms-currency/RECHARGE_ORDER)  
-[会员兑换订单介绍](https://jncinet.github.io/qihucms-currency/EXCHANGE_ORDER)  
-[货币类型介绍](https://jncinet.github.io/qihucms-currency/TYPE)  
+[提现订单](https://jncinet.github.io/qihucms-currency/CASH_OUT_ORDER)  
+[充值订单](https://jncinet.github.io/qihucms-currency/RECHARGE_ORDER)  
+[兑换订单](https://jncinet.github.io/qihucms-currency/EXCHANGE_ORDER)  
+
+[货币类型](https://jncinet.github.io/qihucms-currency/TYPE)  
+[货币类型相互兑换](https://jncinet.github.io/qihucms-currency/EXCHANGE)  

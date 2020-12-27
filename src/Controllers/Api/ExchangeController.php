@@ -36,6 +36,6 @@ class ExchangeController extends ApiController
             return new ExchangeResource($result);
         }
 
-        return $this->jsonResponse(['内容不存在'], '', 422);
+        return $this->jsonResponse([__('currency::message.record_does_not_exist')], '', 422);
     }
 }

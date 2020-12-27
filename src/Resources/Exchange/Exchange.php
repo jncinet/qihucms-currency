@@ -3,7 +3,6 @@
 namespace Qihucms\Currency\Resources\Exchange;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Carbon;
 use Qihucms\Currency\Resources\Type\Type;
 
 class Exchange extends JsonResource
@@ -21,8 +20,7 @@ class Exchange extends JsonResource
             'currency_type_id' => new Type($this->currency_type),
             'currency_type_to' => new Type($this->currency_type_to),
             'rate' => $this->rate,
-            'exchange_max_amount' => $this->exchange_max_amount,
-            'created_at' => Carbon::parse($this->created_at)->diffForHumans()
+            'exchange_max_amount' => $this->exchange_max_amount
         ];
     }
 }

@@ -21,7 +21,7 @@ class User extends JsonResource
             'user_id' => $this->user_id,
             'currency_type' => new Type($this->currency_type),
             'amount' => $this->amount,
-            'created_at' => Carbon::parse($this->created_at)->diffForHumans()
+            'updated_at' => Carbon::parse($this->updated_at)->diffForHumans()
         ];
     }
 }
