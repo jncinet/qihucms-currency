@@ -94,3 +94,19 @@
     }
 }
 ```
+
+## 数据库
+
+### 充值订单记录：currency_recharge_orders
+| Field                 | Type      | Length    | AllowNull | Default   | Comment       |
+| :----                 | :----     | :----     | :----     | :----     | :----         |
+| id                    | bigint    |           |           |           |               |
+| user_id               | bigint    |           |           |           | 充值会员       |
+| currency_type_id      | bigint    |           |           |           | 充值类型       |
+| rate                  | int       |           |           | 0         | 充值汇率       |
+| recharge_amount       | decimal   | 10, 2     |           | 0.00      | 充值金额       |
+| recorded_amount       | decimal   | 10, 2     |           | 0.00      | 到账金额       |
+| user_amount           | decimal   | 10, 2     |           | 0.00      | 会员账户金额    |
+| status                | tinyint   |           |           | 0         | 充值状态       |
+| created_at            | timestamp |           | Y         | NULL      | 创建时间       |
+| updated_at            | timestamp |           | Y         | NULL      | 更新时间       |

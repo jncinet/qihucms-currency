@@ -18,7 +18,7 @@ class CreateCurrencyTables extends Migration
             $table->bigIncrements('id');
             $table->string('name', 100)->comment('货币名称');
             $table->string('ico', 100)->comment('小图标');
-            $table->string('unit')->comment('单位');
+            $table->string('unit', 10)->comment('单位');
             $table->unsignedInteger('recharge_rate')->default(0)->comment('1RMB=？');
             $table->unsignedInteger('cash_out_rate')->default(0)->comment('？=1RMB');
             $table->unsignedInteger('cash_out_service_rate')->default(0)->comment('提现手续费比例');
@@ -26,7 +26,7 @@ class CreateCurrencyTables extends Migration
                 ->default(0)->comment('最小充值金额');
             $table->unsignedDecimal('cash_out_max_amount', 10, 2)
                 ->default(0)->comment('每日最高提现');
-            $table->unsignedDecimal('cash_out_min_amount', 10, 2)
+                $table->unsignedDecimal('cash_out_min_amount', 10, 2)
                 ->default(0)->comment('每笔最低提现');
             $table->unsignedDecimal('cash_out_min_rate', 10, 2)
                 ->default(0)->comment('单笔最低手续费');

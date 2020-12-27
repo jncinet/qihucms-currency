@@ -95,3 +95,20 @@
     }
 }
 ```
+
+## 数据库
+
+### 提现订单记录：currency_cash_out_orders
+| Field                 | Type      | Length    | AllowNull | Default   | Comment       |
+| :----                 | :----     | :----     | :----     | :----     | :----         |
+| id                    | bigint    |           |           |           |               |
+| user_id               | bigint    |           |           |           | 提现会员       |
+| currency_type_id      | bigint    |           |           |           | 提现类型       |
+| currency_bank_card_id | bigint    |           |           |           | 收款账号       |
+| rate                  | int       |           |           | 0         | 提现汇率       |
+| cash_out_amount       | decimal   | 10, 2     |           | 0.00      | 提现金额       |
+| recorded_amount       | decimal   | 10, 2     |           | 0.00      | 到账金额       |
+| user_amount           | decimal   | 10, 2     |           | 0.00      | 会员账户金额    |
+| status                | tinyint   |           |           | 0         | 提现状态       |
+| created_at            | timestamp |           | Y         | NULL      | 创建时间       |
+| updated_at            | timestamp |           | Y         | NULL      | 更新时间       |

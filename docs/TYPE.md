@@ -50,3 +50,26 @@
     "cash_out_status": 1 // 是否可以提现 [0 => '否', 1 => '是']
 }
 ```
+
+## 数据库
+
+### 会员账户：currency_types
+| Field                 | Type      | Length    | AllowNull | Default   | Comment       |
+| :----                 | :----     | :----     | :----     | :----     | :----         |
+| id                    | bigint    |           |           |           |               |
+| name                  | varchar   | 100       |           |           | 货币名称       |
+| ico                   | varchar   | 100       |           |           | 小图标         |
+| unit                  | varchar   | 10        |           |           | 单位          |
+| recharge_rate         | int       |           |           | 0         | 1RMB=？       |
+| cash_out_rate         | int       |           |           | 0         | ？=1RMB       |
+| cash_out_service_rate | int       |           |           | 0         | 提现手续费比例  |
+| recharge_min_amount   | decimal   | 10, 2     |           | 0.00      | 最小充值金额    |
+| cash_out_max_amount   | decimal   | 10, 2     |           | 0.00      | 每日最高提现    |
+| cash_out_min_amount   | decimal   | 10, 2     |           | 0.00      | 每笔最低提现    |
+| cash_out_min_rate     | decimal   | 10, 2     |           | 0.00      | 单笔最低手续费  |
+| cash_out_max_rate     | decimal   | 10, 2     |           | 0.00      | 单笔最高手续费  |
+| recharge_status       | tinyint   | 1         |           | 0         | 是否可以充值    |
+| exchange_status       | tinyint   | 1         |           | 0         | 是否可以兑换    |
+| cash_out_status       | tinyint   | 1         |           | 0         | 是否可以提现    |
+| created_at            | timestamp |           | Y         | NULL      | 创建时间       |
+| updated_at            | timestamp |           | Y         | NULL      | 更新时间       |

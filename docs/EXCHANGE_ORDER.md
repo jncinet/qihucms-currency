@@ -91,3 +91,20 @@
     }
 }
 ```
+
+
+## 数据库
+
+### 兑换订单记录：currency_exchange_orders
+| Field                 | Type      | Length    | AllowNull | Default   | Comment       |
+| :----                 | :----     | :----     | :----     | :----     | :----         |
+| id                    | bigint    |           |           |           |               |
+| user_id               | bigint    |           |           |           | 兑换会员       |
+| currency_exchange_id  | bigint    |           |           |           | 兑换类型       |
+| rate                  | int       |           |           | 0         | 兑换汇率       |
+| exchange_amount       | decimal   | 10, 2     |           | 0.00      | 兑换金额       |
+| recorded_amount       | decimal   | 10, 2     |           | 0.00      | 到账金额       |
+| user_amount           | decimal   | 10, 2     |           | 0.00      | 会员账户金额    |
+| status                | tinyint   |           |           | 0         | 兑换状态       |
+| created_at            | timestamp |           | Y         | NULL      | 创建时间       |
+| updated_at            | timestamp |           | Y         | NULL      | 更新时间       |
