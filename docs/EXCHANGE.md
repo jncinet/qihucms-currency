@@ -34,6 +34,7 @@
 ## 数据库
 
 ### 货币支持的相互兑换类型：currency_exchanges
+
 | Field                 | Type      | Length    | AllowNull | Default   | Comment       |
 | :----                 | :----     | :----     | :----     | :----     | :----         |
 | id                    | bigint    |           |           |           |               |

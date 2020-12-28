@@ -129,6 +129,7 @@
 ## 数据库
 
 ### 会员收款卡号：currency_bank_cards
+
 | Field             | Type      | Length    | AllowNull | Default   | Comment       |
 | :----             | :----     | :----     | :----     | :----     | :----         |
 | id                | bigint    |           |           |           |               |

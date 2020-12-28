@@ -96,6 +96,7 @@
 ## 数据库
 
 ### 兑换订单记录：currency_exchange_orders
+
 | Field                 | Type      | Length    | AllowNull | Default   | Comment       |
 | :----                 | :----     | :----     | :----     | :----     | :----         |
 | id                    | bigint    |           |           |           |               |

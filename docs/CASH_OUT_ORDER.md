@@ -99,6 +99,7 @@
 ## 数据库
 
 ### 提现订单记录：currency_cash_out_orders
+
 | Field                 | Type      | Length    | AllowNull | Default   | Comment       |
 | :----                 | :----     | :----     | :----     | :----     | :----         |
 | id                    | bigint    |           |           |           |               |

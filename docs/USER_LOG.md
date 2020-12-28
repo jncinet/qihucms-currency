@@ -62,6 +62,7 @@
 ## 数据库
 
 ### 账户流水：currency_user_logs
+
 | Field                 | Type      | Length    | AllowNull | Default   | Comment       |
 | :----                 | :----     | :----     | :----     | :----     | :----         |
 | id                    | bigint    |           |           |           |               |

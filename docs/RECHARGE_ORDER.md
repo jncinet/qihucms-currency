@@ -98,6 +98,7 @@
 ## 数据库
 
 ### 充值订单记录：currency_recharge_orders
+
 | Field                 | Type      | Length    | AllowNull | Default   | Comment       |
 | :----                 | :----     | :----     | :----     | :----     | :----         |
 | id                    | bigint    |           |           |           |               |

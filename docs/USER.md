@@ -34,6 +34,7 @@
 ## 数据库
 
 ### 会员账户：currency_users
+
 | Field                 | Type      | Length    | AllowNull | Default   | Comment       |
 | :----                 | :----     | :----     | :----     | :----     | :----         |
 | id                    | bigint    |           |           |           |               |
