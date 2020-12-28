@@ -44,7 +44,7 @@ class ExchangeOrdersController extends Controller
         });
 
         $grid->column('id', __('currency::exchange_order.id'));
-        $grid->column('user.nickname', __('user.nickname'));
+        $grid->column('user.username', __('user.username'));
         $grid->column('currency_exchange_id', __('currency::exchange_order.currency_exchange_id'))
             ->display(function () {
                 return $this->currency_exchange->currency_type->name . ' => ' . $this->currency_exchange->currency_type_to->name;

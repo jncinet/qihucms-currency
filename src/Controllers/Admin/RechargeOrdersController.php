@@ -44,7 +44,7 @@ class RechargeOrdersController extends Controller
         });
 
         $grid->column('id', __('currency::recharge_order.id'));
-        $grid->column('user.nickname', __('user.nickname'));
+        $grid->column('user.username', __('user.username'));
         $grid->column('currency_type.name', __('currency::type.name'));
         $grid->column('rate', __('currency::recharge_order.rate'));
         $grid->column('recharge_amount', __('currency::recharge_order.recharge_amount'));

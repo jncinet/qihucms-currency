@@ -42,7 +42,7 @@ class UsersController extends Controller
         });
 
         $grid->column('id', __('currency::user.id'));
-        $grid->column('user.nickname', __('user.nickname'));
+        $grid->column('user.username', __('user.username'));
         $grid->column('currency_type.name', __('currency::type.name'));
         $grid->column('amount', __('currency::user.amount'));
 
@@ -61,7 +61,7 @@ class UsersController extends Controller
 
         $show->field('id', __('currency::user.id'));
         $show->field('user_id', __('currency::user.user_id'))->as(function () {
-            return $this->user->nickname ?? trans('currency::message.record_does_not_exist');
+            return $this->user->username ?? trans('currency::message.record_does_not_exist');
         });
         $show->field('currency_type_id', __('currency::user.currency_type_id'))->as(function () {
             return $this->currency_type->name ?? trans('currency::message.record_does_not_exist');

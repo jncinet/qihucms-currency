@@ -42,7 +42,7 @@ class BankCardsController extends Controller
         });
 
         $grid->column('id', __('currency::bank_card.id'));
-        $grid->column('user.nickname', __('user.nickname'));
+        $grid->column('user.username', __('user.username'));
         $grid->column('name', __('currency::bank_card.name'));
         $grid->column('bank', __('currency::bank_card.bank'));
         $grid->column('mobile', __('currency::bank_card.mobile'));
@@ -63,7 +63,7 @@ class BankCardsController extends Controller
 
         $show->field('id', __('currency::bank_card.id'));
         $show->field('user_id', __('currency::bank_card.user_id'))->as(function () {
-            return $this->user->nickname ?? trans('currency::message.record_does_not_exist');
+            return $this->user->username ?? trans('currency::message.record_does_not_exist');
         });
         $show->field('name', __('currency::bank_card.name'));
         $show->field('bank', __('currency::bank_card.bank'));

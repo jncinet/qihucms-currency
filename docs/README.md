@@ -2,7 +2,7 @@
 
 ## 安装
 ```shell
-composer require jncinet/qihucms-currency
+$ composer require jncinet/qihucms-currency
 ```
 
 ## 开始
@@ -13,6 +13,10 @@ $ php artisan migrate
 ### 发布资源
 ```shell
 $ php artisan vendor:publish --provider="Qihucms\Currency\CurrencyServiceProvider"
+```
+发布支付包资源[【qihucms-payment 主页】](https://jncinet.github.io/qihucms-payment/)，如果首次安装请布此支付资源
+```shell
+$ php artisan vendor:publish --provider="Qihucms\Payment\PaymentServiceProvider"
 ```
 
 ## 配置

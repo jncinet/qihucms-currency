@@ -46,7 +46,7 @@ class CashOutOrdersController extends Controller
         });
 
         $grid->column('id', __('currency::cash_out_order.id'));
-        $grid->column('user.nickname', __('user.nickname'));
+        $grid->column('user.username', __('user.username'));
         $grid->column('currency_type.name', __('currency::type.name'));
         $grid->column('currency_bank_card', __('currency::type.name'))
             ->display(function () {
