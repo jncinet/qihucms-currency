@@ -5,8 +5,28 @@
 composer require jncinet/qihucms-currency
 ```
 
+## 开始
+### 数据迁移
+```shell
+$ php artisan migrate
+```
+### 发布资源
+```shell
+$ php artisan vendor:publish --provider="Qihucms\Currency\CurrencyServiceProvider"
+```
+
 ## 配置
 > 接口URL前缀可在文件/config/qihu.php中设置 currency_prefix 配置；
+
+## 后台
++ 货币类型 => currency/types
++ 货币兑换类型 => currency/exchanges
++ 会员卡号 => currency/bank-cards
++ 会员账户 => currency/users
++ 账户流水 => currency/user-logs
++ 充值订单 => currency/recharge-orders
++ 兑换订单 => currency/exchange-orders
++ 提现订单 => currency/cash-out-orders
 
 ## 使用
 [会员卡号](https://jncinet.github.io/qihucms-currency/BANK_CARD)  
