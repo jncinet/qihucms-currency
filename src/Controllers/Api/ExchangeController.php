@@ -2,13 +2,13 @@
 
 namespace Qihucms\Currency\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Qihucms\Currency\Currency;
 use Qihucms\Currency\Resources\Exchange\ExchangeCollection;
 use Qihucms\Currency\Resources\Exchange\Exchange as ExchangeResource;
 
-class ExchangeController extends ApiController
+class ExchangeController extends Controller
 {
     /**
      * 所有兑换规则

@@ -2,12 +2,12 @@
 
 namespace Qihucms\Currency\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use Qihucms\Currency\Currency;
 use Qihucms\Currency\Resources\Type\TypeCollection;
 use Qihucms\Currency\Resources\Type\Type as TypeResource;
 
-class TypeController extends ApiController
+class TypeController extends Controller
 {
     /**
      * 查询所有货币类型

@@ -2,7 +2,7 @@
 
 namespace Qihucms\Currency\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,7 @@ use Qihucms\Currency\Requests\ExchangeOrder\StoreRequest;
 use Qihucms\Currency\Resources\ExchangeOrder\ExchangeOrderCollection;
 use Qihucms\Currency\Resources\ExchangeOrder\ExchangeOrder as ExchangeOrderResource;
 
-class ExchangeOrderController extends ApiController
+class ExchangeOrderController extends Controller
 {
     protected $order;
 

@@ -2,7 +2,7 @@
 
 namespace Qihucms\Currency\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,7 @@ use Qihucms\Currency\Requests\CashOutOrder\StoreRequest;
 use Qihucms\Currency\Resources\CashOutOrder\CashOutOrderCollection;
 use Qihucms\Currency\Resources\CashOutOrder\CashOutOrder as CashOutOrderResource;
 
-class CashOutOrderController extends ApiController
+class CashOutOrderController extends Controller
 {
     protected $order;
 

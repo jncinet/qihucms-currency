@@ -2,14 +2,14 @@
 
 namespace Qihucms\Currency\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Qihucms\Currency\Repositories\UserLogRepository;
 use Qihucms\Currency\Resources\UserLog\UserLogCollection;
 use Qihucms\Currency\Resources\UserLog\UserLog as UserLogResource;
 
-class UserLogController extends ApiController
+class UserLogController extends Controller
 {
     protected $log;
 

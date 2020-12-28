@@ -2,7 +2,7 @@
 
 namespace Qihucms\Currency\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,7 @@ use Qihucms\Currency\Requests\BankCard\UpdateRequest;
 use Qihucms\Currency\Resources\BankCard\BankCard as BankCardResource;
 use Qihucms\Currency\Resources\BankCard\BankCardCollection;
 
-class BankCardController extends ApiController
+class BankCardController extends Controller
 {
     protected $bankCard;
 
