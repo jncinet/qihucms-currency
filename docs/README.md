@@ -5,6 +5,16 @@
 composer require jncinet/qihucms-currency
 ```
 
+## 开始
+### 数据迁移
+```shell
+$ php artisan migrate
+```
+### 发布资源
+```shell
+$ php artisan vendor:publish --provider="Qihucms\Currency\CurrencyServiceProvider"
+```
+
 ## 配置
 > 接口URL前缀可在文件/config/qihu.php中设置 currency_prefix 配置；
 
