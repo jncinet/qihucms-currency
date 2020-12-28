@@ -27,6 +27,8 @@ $ php artisan vendor:publish --provider="Qihucms\Currency\CurrencyServiceProvide
 + 充值订单 => currency/recharge-orders
 + 兑换订单 => currency/exchange-orders
 + 提现订单 => currency/cash-out-orders
++ 引入支付扩展包中后台菜单：
+    - 支付订单 => payment/pay-orders
 
 ## 使用
 [会员卡号](https://jncinet.github.io/qihucms-currency/BANK_CARD)  
