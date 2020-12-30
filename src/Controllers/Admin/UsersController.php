@@ -89,7 +89,7 @@ class UsersController extends Controller
                     return [$user->id => $user->username];
                 }
             })
-            ->ajax(route('admin.user.select'))
+            ->ajax(route('admin.select.user'))
             ->required();
         $form->select('currency_type_id', __('currency::user.currency_type_id'))
             ->options(CurrencyType::all()->pluck('name', 'id'))
