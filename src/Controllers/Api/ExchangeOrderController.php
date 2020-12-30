@@ -118,7 +118,7 @@ class ExchangeOrderController extends Controller
                         $result->id
                     );
 
-                    if ($resultX === true) {
+                    if ($resultX === 100) {
                         // Y类型入账
                         $resultY = Currency::entry(
                             $result->user_id,
@@ -128,7 +128,7 @@ class ExchangeOrderController extends Controller
                             $result->id
                         );
 
-                        if ($resultY === true) {
+                        if ($resultY === 100) {
                             // 更新订单
                             $result->status = 1;
                             $result->save();

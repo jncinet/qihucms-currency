@@ -196,7 +196,7 @@ class CashOutOrderController extends Controller
         );
 
         // =100时，扣款成功
-        if ($expend === true) {
+        if ($expend === 100) {
             return new CashOutOrderResource($result);
         }
 

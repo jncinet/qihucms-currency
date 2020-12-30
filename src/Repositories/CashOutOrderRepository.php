@@ -97,7 +97,7 @@ class CashOutOrderRepository
                 $order->id,
                 '提现失败退还额度'
             );
-            if ($result === true) {
+            if ($result === 100) {
                 $order->status = 2;
                 $order->save();
                 return true;
