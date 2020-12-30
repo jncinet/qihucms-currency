@@ -17,7 +17,7 @@ class CreateCurrencyTables extends Migration
         Schema::create('currency_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 100)->comment('货币名称');
-            $table->string('ico', 100)->comment('小图标');
+            $table->string('ico')->nullable()->comment('小图标');
             $table->string('unit', 10)->comment('单位');
             $table->unsignedInteger('recharge_rate')->default(0)->comment('1RMB=？');
             $table->unsignedInteger('cash_out_rate')->default(0)->comment('？=1RMB');

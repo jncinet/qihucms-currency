@@ -59,7 +59,7 @@
 | :----                 | :----     | :----     | :----     | :----     | :----         |
 | id                    | bigint    |           |           |           |               |
 | name                  | varchar   | 100       |           |           | 货币名称       |
-| ico                   | varchar   | 100       |           |           | 小图标         |
+| ico                   | varchar   | 255       | Y         | NULL      | 小图标         |
 | unit                  | varchar   | 10        |           |           | 单位          |
 | recharge_rate         | int       |           |           | 0         | 1RMB=？       |
 | cash_out_rate         | int       |           |           | 0         | ？=1RMB       |
