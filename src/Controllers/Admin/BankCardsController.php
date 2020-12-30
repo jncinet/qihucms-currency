@@ -91,7 +91,7 @@ class BankCardsController extends Controller
                     return [$user->id => $user->username];
                 }
             })
-            ->ajax(route('api.article.select.users.q'))
+            ->ajax(route('admin.user.select'))
             ->required();
         $form->text('name', __('currency::bank_card.name'))->required();
         $form->text('bank', __('currency::bank_card.bank'))->required();

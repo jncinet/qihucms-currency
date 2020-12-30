@@ -106,7 +106,7 @@ class ExchangeOrdersController extends Controller
                     return [$user->id => $user->username];
                 }
             })
-            ->ajax(route('api.article.select.users.q'))
+            ->ajax(route('admin.user.select'))
             ->required();
         $form->select('currency_exchange_id', __('currency::exchange_order.currency_exchange_id'))
             ->options(CurrencyExchange::all()->pluck('id', 'id'))

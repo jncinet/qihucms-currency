@@ -98,7 +98,7 @@ class UserLogsController extends Controller
                     return [$user->id => $user->username];
                 }
             })
-            ->ajax(route('api.article.select.users.q'))
+            ->ajax(route('admin.user.select'))
             ->required();
         $form->select('currency_type_id', __('currency::user_log.currency_type_id'))
             ->options(CurrencyType::all()->pluck('name', 'id'))

@@ -103,7 +103,7 @@ class RechargeOrdersController extends Controller
                     return [$user->id => $user->username];
                 }
             })
-            ->ajax(route('api.article.select.users.q'))
+            ->ajax(route('admin.user.select'))
             ->required();
         $form->select('currency_type_id', __('currency::recharge_order.currency_type_id'))
             ->options(CurrencyType::all()->pluck('name', 'id'))
